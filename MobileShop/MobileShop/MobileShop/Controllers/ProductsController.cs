@@ -31,9 +31,9 @@ namespace MobileShop.Controllers
             return View(detail);
         }
 
-        public ActionResult AllProduct()
+        public ActionResult AllProduct(int page=1)
         {
-            var products = ProductsBUS.DanhSach();
+            var products = ProductsBUS.DanhSach(page, 8);
 
             return View(products);
         }

@@ -3,7 +3,7 @@
     ViewBag.Title = "AllProduct";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-@model IEnumerable<MobileShopConnection.Product>
+@model PetaPoco.Page<MobileShopConnection.Product>
 
 <div class="mainmenu-area">
     <div class="container">
@@ -47,7 +47,7 @@
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Items)
             {
                 <div class="col-md-3 col-sm-6">
                     <div class="single-shop-product">
@@ -73,21 +73,10 @@
                     <div class="product-pagination text-center">
                         <nav>
                             <ul class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    <li><a href="@Url.Action("AllProduct","Products", new { page=i})">@i</a></li>
+                                }
                             </ul>
                         </nav>
                     </div>
