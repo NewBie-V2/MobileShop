@@ -31,5 +31,7 @@ namespace MobileShop.Models
         }
 
         public System.Data.Entity.DbSet<MobileShopConnection.Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<MobileShopConnection.Producer> Producers { get; set; }
     }
 }

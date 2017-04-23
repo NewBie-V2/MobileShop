@@ -12,5 +12,7 @@ namespace MobileShop.ViewModels
         public MobileShopConnection.ProductDetail ProductDetails { get; set; }
 
         public string Producer { get; set; }
+
+        public IEnumerable<MobileShopConnection.Image> images { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace MobileShop.Models.Generated.BUS
         {
             using (var db = new MobileShopConnectionDB())
             {
-                return db.Query<Product>("Select * From Product");
+                return db.Query<Product>("Select * From Product  where Deleted = 0");
             }
         }
     }

@@ -34,14 +34,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using PetaPoco;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MobileShopConnection
 {
 
-	public partial class MobileShopConnectionDB : Database
+    public partial class MobileShopConnectionDB : Database
 	{
 		public MobileShopConnectionDB() 
 			: base("MobileShopConnection")
@@ -267,6 +267,42 @@ namespace MobileShopConnection
 
     
 
+	[TableName("dbo.Image")]
+
+
+
+	[PrimaryKey("ImageID")]
+
+
+
+
+	[ExplicitColumns]
+
+    public partial class Image : MobileShopConnectionDB.Record<Image>  
+    {
+
+
+
+		[Column] public int ImageID { get; set; }
+
+
+
+
+
+		[Column] public int ProductID { get; set; }
+
+
+
+
+
+		[Column] public string ImageURL { get; set; }
+
+
+
+	}
+
+    
+
 	[TableName("dbo.Invoice")]
 
 
@@ -324,26 +360,26 @@ namespace MobileShopConnection
     {
 
 
-
-		[Column] public int ProducerID { get; set; }
-
-
-
-
-
-		[Column] public string ProducerName { get; set; }
+        [DisplayName("ID")]
+        [Column] public int ProducerID { get; set; }
 
 
 
 
-
-		[Column] public string LoGo { get; set; }
-
-
+        [DisplayName("Name")]
+        [Column] public string ProducerName { get; set; }
 
 
 
-		[Column] public long? Deleted { get; set; }
+
+        [DisplayName("Logo")]
+        [Column] public string LoGo { get; set; }
+
+
+
+
+        [DisplayName("Available")]
+        [Column] public long? Deleted { get; set; }
 
 
 
@@ -366,38 +402,38 @@ namespace MobileShopConnection
     {
 
 
-
+        [DisplayName("ID")]
 		[Column] public int ProductID { get; set; }
 
 
 
 
-
-		[Column] public string ProductName { get; set; }
-
-
-
-
-
-		[Column] public int? ProductTypeID { get; set; }
+        [DisplayName("Name")]
+        [Column] public string ProductName { get; set; }
 
 
 
 
-
-		[Column] public int? ProducerID { get; set; }
-
-
-
-
-
-		[Column] public decimal? Price { get; set; }
+        [DisplayName("Type")]
+        [Column] public int? ProductTypeID { get; set; }
 
 
 
 
+        [DisplayName("Producer")]
+        [Column] public int? ProducerID { get; set; }
 
-		[Column] public int? Sold { get; set; }
+
+
+
+        [DisplayFormat(DataFormatString = "{0:N}")]
+        [Column] public decimal? Price { get; set; }
+
+
+
+
+        
+        [Column] public int? Sold { get; set; }
 
 
 
@@ -414,8 +450,8 @@ namespace MobileShopConnection
 
 
 
-
-		[Column] public DateTime? Date { get; set; }
+        [DisplayFormat(DataFormatString = "{00:dd MMM yyyy}")]
+        [Column] public DateTime? Date { get; set; }
 
 
 
@@ -432,8 +468,8 @@ namespace MobileShopConnection
 
 
 
-
-		[Column] public long? Deleted { get; set; }
+        [DisplayName("Available")]
+        [Column] public long? Deleted { get; set; }
 
 
 

@@ -1,0 +1,21 @@
+﻿@model List<MobileShopConnection.Product>
+
+@foreach(var item in Model)
+{
+    <tr>
+        <td>@item.ProductName</td>
+        <td>@item.ProductTypeID</td>
+        <td>@item.ProducerID</td>
+        <td>@item.Price</td>
+        <td>@item.Sold</td>
+        <td>@item.Viewed</td>
+        <td>@item.Date</td>
+        <td>@item.Description</td>
+        <td>
+            <a href="@Url.Action("Detail","Product",new { @id=item.ProductID})" class="btn btn-info btn-xs text-left" data-dismiss="modal"><i class="fa fa-fw fa-info-circle"></i> Details</a>
+            <a href="@Url.Action("Update","Product",new { @id=item.ProductID})" class="btn btn-warning btn-xs text-center"><i class="fa fa-fw fa-remove"></i> Edit</a> 
+            <a href="@Url.Action("Delete","Product",new { @id=item.ProductID})" class="btn btn-danger btn-xs text-right" ><i class="fa fa-fw fa-remove"></i> Delete</a> 
+        </td>
+    </tr>
+
+}

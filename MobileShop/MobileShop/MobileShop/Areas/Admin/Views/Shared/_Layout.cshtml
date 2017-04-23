@@ -15,6 +15,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>AdminLTE 2 | Starter</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @RenderSection("head", required: false)
+
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="~/Assets/Admin/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -60,7 +63,7 @@ desired effect
         <!-- Main Header -->
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="@Url.Action("index", "Home")" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
@@ -253,11 +256,18 @@ desired effect
                 <!-- /.search form -->
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
-                    <li class="header">HEADER</li>
+                    <li class="header">MENU</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Product</span></a></li>
-                    <li><a href="#"><i class="fa fa-link"></i> <span>Producer</span></a></li>
-                    <li class="treeview">
+                    <li>
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span>Home</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Product")"><i class="fa fa-hand-o-right"></i> <span>Product</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Producer")"><i class="fa fa-hand-o-right"></i> <span>Producer</span></a>
+                    </li>
+                    @*<li class="treeview">
                         <a href="#">
                             <i class="fa fa-link"></i> <span>Multilevel</span>
                             <span class="pull-right-container">
@@ -268,7 +278,7 @@ desired effect
                             <li><a href="#">Link in level 2</a></li>
                             <li><a href="#">Link in level 2</a></li>
                         </ul>
-                    </li>
+                    </li>*@
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -277,7 +287,7 @@ desired effect
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <section class="content-header">
+            @*<section class="content-header">
                 <h1>
                     Page Header
                     <small>Optional description</small>
@@ -286,7 +296,7 @@ desired effect
                     <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                     <li class="active">Here</li>
                 </ol>
-            </section>
+            </section>*@
             <!-- Main content -->
             <section class="content">
                 @RenderBody()
@@ -385,5 +395,6 @@ desired effect
          Both of these plugins are recommended to enhance the
          user experience. Slimscroll is required when using the
          fixed layout. -->
+    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -135,6 +135,42 @@
                     </div>
                     <!---->
 
+                    <div class="bs-example col-md-6">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Carousel indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                            </ol>
+                            <!-- Wrapper for carousel items -->
+                            <div class="carousel-inner">
+                                @for (int i = 0; i < Model.FirstOrDefault().images.Count(); i++)
+                                {
+                                    <div class='item @i==0 ? "active": ""'>
+                                        <img src="~/Assets/Users/img/@Model.FirstOrDefault().images.ElementAt(i)" alt="First Slide" class="img-responsive center-block">
+                                    </div>
+                                }
+                                @*<div class="item active">
+                                    <img src="~/Assets/Users/img/Apple Macbook 12 1.png" alt="First Slide" class="img-responsive center-block">
+                                </div>
+                                <div class="item">
+                                    <img src="~/Assets/Users/img/Apple Macbook 12 1.png" alt="Second Slide" class="img-responsive center-block">
+                                </div>
+                                <div class="item">
+                                    <img src="~/Assets/Users/img/Apple Macbook 12 1.png" alt="Third Slide" class="img-responsive center-block">
+                                </div>*@
+                            </div>
+                            <!-- Carousel controls -->
+                            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
                     @*<div class="related-products-wrapper">
                         <h2 class="related-products-title">Related Products</h2>
                         <div class="related-products-carousel">
