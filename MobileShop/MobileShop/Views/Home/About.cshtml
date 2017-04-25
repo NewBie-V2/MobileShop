@@ -1,7 +1,63 @@
 ﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<div class="mainmenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Shop Page", "AllProduct", "Products")</li>
+                    <li>@Html.ActionLink("Shoping Cart", "Cart", "ShopingCart")</li>
+                    <li class="active">@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> <!-- End mainmenu area -->
 
-<p>Use this area to provide additional information.</p>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>About</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="carousel-inner" role="listbox">
+    <div class="item active">
+        <div class="single-slide">
+            <div class="slide-bg slide-one"></div>
+            <div class="slide-text-wrapper">
+                <div class="slide-text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="slide-content">
+                                    <h2>About us</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem, excepturi. Dolore aliquam quibusdam ut quae iure vero exercitationem ratione!</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi ab molestiae minus reiciendis! Pariatur ab rerum, sapiente ex nostrum laudantium.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

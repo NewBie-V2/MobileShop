@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MobileShopConnection.Image>
+
+@{
+    ViewBag.Title = "ImageUpload";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section head{
+    <title>Admin | Image upload</title>
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @using (Html.BeginForm("ImageEdit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <input name="productID" type="hidden" value="@Model.FirstOrDefault().ProductID"/>
+
+                <input type="file" name="file1" multiple class="filestyle" accept="image/*" data-buttonBefore="true" data-buttonName="btn-primary"/>
+                
+                <div class="box">
+                    <div class="box-body">
+                        <table class="table">
+                            <tr>
+                                <th class="text-center col-md-8">
+                                    @Html.DisplayNameFor(model => model.ImageURL)
+                                </th>
+                                <th class="text-center col-md-4"></th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="image img-responsive text-center">
+                                        <img style="width:8%" src="~/Assets/Users/img/@item.ImageURL" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group-sm">
+                                            <a href="@Url.Action("ImageDelete","Product",new { @id=item.ImageID})" class="btn btn-danger btn-xs text-right"><i class="fa fa-fw fa-remove"></i> Delete</a>   
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+               <input type="submit" value="OKE" class="btn btn-success"/>
+            }
+            </div>
+        </div>
+</section>

@@ -1,0 +1,115 @@
+﻿@model PetaPoco.Page<Product>
+@using MobileShopConnection
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    var msg = TempData["msg"];
+    var icon = TempData["icon"];
+    var x = TempData["x"];
+}
+
+@section head{
+    <title>Admin | Product</title>
+}
+
+@if (msg != null)
+{
+    <div class="alert alert-@x alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-@icon"></i> Info</h4>
+        @msg
+    </div>
+}
+
+<div class="container-fluid">
+    <h2>@ViewBag.Title</h2>
+    <div class="row">
+        <div class="col-md-2">
+            <a href="@Url.Action("Create", "Product")" class="btn btn-block btn-primary btn-lg">New product</a>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Products</h3>
+                </div>
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Items[0].ProductName)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Items[0].ProductTypeID)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Items[0].ProducerID)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Items[0].Price)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Items[0].Sold)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Items[0].Viewed)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Items[0].Date)
+                                </th>
+                                <th class="col-md-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*@Html.Partial("_Product", (ViewBag.Projects as List<Product>))*@
+                            @for (int i = 0; i< Model.Items.Count;i++)
+                            {
+                                <tr>
+                                    <td>@Model.Items[i].ProductName</td>
+                                    <td class="text-center">@Html.DisplayFor(t=>t.Items[i].ProductTypeID)</td>
+                                    <td class="text-center">@Html.DisplayFor(t => t.Items[i].ProducerID)</td>
+                                    <td class="text-right">@Html.DisplayFor(t => t.Items[i].Price)</td>
+                                    <td class="text-right">@Html.DisplayFor(t => t.Items[i].Sold)</td>
+                                    <td class="text-right">@Html.DisplayFor(t => t.Items[i].Viewed)</td>
+                                    <td>@Html.DisplayFor(t => t.Items[i].Date)</td>
+                                    <td class="text-right"v>
+                                        <div class="btn-group-sm text-center">
+                                            <a href="@Url.Action("ImageEdit","Product",new { @id= Model.Items[i].ProductID})" class="btn btn-default btn-xs text-center"><i class="fa fa-fw fa-fw  fa-file-picture-o"></i> Image</a>
+                                            <a href="@Url.Action("Edit","Product",new { @id= Model.Items[i].ProductID})" class="btn btn-info btn-xs text-center"><i class="fa fa-fw fa-fw fa-edit"></i> Edit</a>
+                                            <a href="@Url.Action("Delete","Product",new { @id=Model.Items[i].ProductID})" class="btn btn-danger btn-xs text-right" name="@Model.Items[i].ProductID"><i class="fa fa-fw fa-remove"></i> Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <ul class="pagination">
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li><a href="@Url.Action("Index","Product", new { page=i})">@i</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+        function onSuccess(result) {
+            if (result.error) {
+                alert(result.error);
+            } else {
+                alert(result.success);
+            }
+        }
+    </script>
+
+}

@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "AllProduct";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model PetaPoco.Page<MobileShopConnection.Product>
+
+<div class="mainmenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="active">@Html.ActionLink("Shop Page", "AllProduct", "Products")</li>
+                    <li>@Html.ActionLink("Shoping Cart", "Cart", "ShopingCart")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> <!-- End mainmenu area -->
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Shop</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.Items)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img src="~/Assets/Users/img/@item.ImageURL" alt="">
+                        </div>
+                        <h2>@Html.ActionLink(@item.ProductName, "Details", new { id = @item.ProductID })</h2>
+                        <div class="product-carousel-price">
+                            <ins>@Convert.ToDecimal(@item.Price).ToString("#,###₫")</ins>
+                        </div>
+
+                        <div class="product-option-shop">
+                            @Html.ActionLink("Add to cart", "Detail",
+                                      new { id = @item.ProductID },
+                                      new { @class = "add_to_cart_button" })
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-pagination text-center">
+                        <nav>
+                            <ul class="pagination">
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    <li><a href="@Url.Action("AllProduct","Products", new { page=i})">@i</a></li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

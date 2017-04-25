@@ -29,5 +29,11 @@ namespace MobileShop.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<MobileShopConnection.Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<MobileShopConnection.Producer> Producers { get; set; }
+
+        public System.Data.Entity.DbSet<MobileShopConnection.Image> Images { get; set; }
     }
 }

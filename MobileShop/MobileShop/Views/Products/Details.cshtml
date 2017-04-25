@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model IEnumerable<MobileShop.ViewModels.DetailViewModel>
+
+<div class="mainmenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Shop Page", "AllProduct", "Products")</li>
+                    <li>@Html.ActionLink("Shoping Cart", "Cart", "ShopingCart")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> <!-- End mainmenu area -->
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Shop</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Search Products</h2>
+                    <form action="">
+                        <input type="text" placeholder="Search products...">
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="product-content-right">
+                    <div class="product-breadcroumb">
+                        @Html.ActionLink("Home", "Index", "Home")
+                        @Html.ActionLink("Shop Page", "AllProduct", "Products")
+                        <a href="#">@Model.FirstOrDefault().Products.ProductName</a>
+                    </div>
+
+                    <!---->
+                    <div class="row">
+
+                        <div class="bs-example col-md-6">
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <!-- Carousel indicators -->
+                                <ol class="carousel-indicators">
+                                    @for (int i = 0; i < Model.FirstOrDefault().images.Count(); i++)
+                                    {
+                                        <li data-target="#myCarousel" data-slide-to="0" @(i == 0 ? "class=active" : "")></li>
+                                    }
+                                </ol>
+                                <!-- Wrapper for carousel items -->
+                                <div class="carousel-inner">
+                                    @for (int i = 0; i < Model.FirstOrDefault().images.Count(); i++)
+                                    {
+                                        <div class='@(i==0 ? "item active" : "item")'>
+                                            <img src="~/Assets/Users/img/@Model.FirstOrDefault().images.ElementAt(i).ImageURL" alt="First Slide" class="img-responsive center-block">
+                                        </div>
+                                    }
+                                </div>
+                                <!-- Carousel controls -->
+                                <a class="carousel-control left" data-slide="prev" href="#myCarousel">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="carousel-control right" data-slide="next" href="#myCarousel">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name">@Model.FirstOrDefault().Products.ProductName</h2>
+                                <div class="product-inner-price">
+                                    <ins>@Convert.ToDecimal(@Model.FirstOrDefault().Products.Price).ToString("#,###₫")</ins>
+                                </div>
+
+                                <form action="" class="cart">
+                                    <div class="quantity">
+                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                    </div>
+                                    <button class="add_to_cart_button" type="submit">Add to cart</button>
+                                </form>
+
+                                <div class="product-inner-category">
+                                    <p>Category: <a href="">@Model.FirstOrDefault().Producer</a>.</p>
+                                </div>
+
+                                <div role="tabpanel">
+                                    <ul class="product-tab" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tech Specs</a></li>
+                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                            <h2>Tech Specs</h2>
+                                            <p><b>Producer: </b>@(Model.FirstOrDefault().Producer != null ? Model.FirstOrDefault().Producer : "No infomation")</p>
+                                            <p><b>Screen: </b>@(Model.FirstOrDefault().ProductDetails != null ? Model.FirstOrDefault().ProductDetails.Screen : "No infomation")</p>
+                                            <p><b>Operating System: </b>@(Model.FirstOrDefault().ProductDetails != null ? Model.FirstOrDefault().ProductDetails.OperatingSystem : "No infomation")</p>
+                                            <p><b>CPU: </b>@(Model.FirstOrDefault().ProductDetails != null ? Model.FirstOrDefault().ProductDetails.CPU : "No infomation")</p>
+                                            <p><b>Ram: </b>@(Model.FirstOrDefault().ProductDetails != null ? Model.FirstOrDefault().ProductDetails.Ram : "No infomation")</p>
+                                            <p><b>Pin: </b>@(Model.FirstOrDefault().ProductDetails != null ? Model.FirstOrDefault().ProductDetails.Pin : "No infomation")</p>
+                                            <p><b>Description: </b>@Html.Raw(Model.FirstOrDefault().Products.Description != "" ? Model.FirstOrDefault().Products.Description : "No Description")</p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="profile">
+                                            <h2>Reviews</h2>
+                                            <div class="submit-review">
+                                                <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
+                                                <div class="rating-chooser">
+                                                    <p>Your rating</p>
+                                                    <div class="rating-wrap-post">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                <p><input type="submit" value="Submit"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
