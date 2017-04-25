@@ -50,18 +50,25 @@ namespace MobileShop.Areas.Admin.Controllers
                             {
                                 var path = Path.GetFileName(file.FileName);
                                 var extention = Path.GetExtension(file.FileName).ToString();
-                                var newName = "logo-" + new Random().Next().ToString() + extention;
+                                var newName = "logo-" + producer.ProducerName + "-" + new Random().Next().ToString() + extention;
                                 var savePath = Path.Combine(Server.MapPath("~/Assets/Users/img/"), newName);
                                 file.SaveAs(savePath);
                                 producer.LoGo = newName;
                             }
                         }
 
-                        Models.Generated.BUS.ProducersBUS.Them(producer);
-                        tran.Complete();
-                        msg = "Success";
-                        icon = "check";
-                        x = "success";
+                        int z = 0;
+                        if (int.TryParse(Models.Generated.BUS.ProducersBUS.Them(producer).ToString(), out z))
+                        {
+                            tran.Complete();
+                            msg = "Success";
+                            icon = "check";
+                            x = "success";
+                        }
+                        else
+                        {
+                            tran.Dispose();
+                        }
                     }
                 }
                 catch (TransactionAbortedException ex)
@@ -131,7 +138,51 @@ namespace MobileShop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Producer producer)
         {
-            return View(); 
+            var msg = "";
+            var icon = "ban";
+            var x = "danger";
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (TransactionScope tran = new TransactionScope())
+                    {
+                        if (Request.Files.Count > 0)
+                        {
+                            var file = Request.Files[0];
+                            if (file != null && file.ContentLength > 0)
+                            {
+                                var path = Path.GetFileName(file.FileName);
+                                var extention = Path.GetExtension(file.FileName).ToString();
+                                var newName = "logo-"+ producer.ProducerName + "-" + new Random().Next().ToString() + extention;
+                                var savePath = Path.Combine(Server.MapPath("~/Assets/Users/img/"), newName);
+                                file.SaveAs(savePath);
+                                producer.LoGo = newName;
+                                producer.Deleted = 0;
+                            }
+                        }
+
+                        Models.Generated.BUS.ProducersBUS.Sua(producer);
+                        tran.Complete();
+                        msg = "Success";
+                        icon = "check";
+                        x = "success";
+                    }
+                }
+                catch (TransactionAbortedException ex)
+                {
+                    msg = "Something went wrong: " + ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    msg = ex.Message;
+                }
+            }
+
+            TempData["msg"] = msg;
+            TempData["icon"] = icon;
+            TempData["x"] = x;
+            return RedirectToAction("Index", "Producer");
         }
         #endregion
     }

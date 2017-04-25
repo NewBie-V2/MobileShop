@@ -43,7 +43,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.LoGo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-5">
-                    <input type="file" accept="image/*"/>
+                    <input name="file" type="file" accept="image/*" class="filestyle" data-buttonBefore="true" data-buttonName="btn-primary"/>
                     @Html.ValidationMessageFor(model => model.LoGo, "", new { @class = "text-danger" })
                 </div>
             </div>

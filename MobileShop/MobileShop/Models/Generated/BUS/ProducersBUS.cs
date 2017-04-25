@@ -41,11 +41,11 @@ namespace MobileShop.Models.Generated.BUS
             }
         }
 
-        public static void Them(Producer producer)
+        public static object Them(Producer producer)
         {
             using (var db = new MobileShopConnectionDB())
             {
-                db.Insert(producer);
+                return db.Insert(producer);
             }
         }
 

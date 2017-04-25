@@ -36,6 +36,8 @@ namespace MobileShop.Controllers
 
         public ActionResult AllProduct(int page=1)
         {
+            MobileShop.ViewModels.AllProductViewModel data = new MobileShop.ViewModels.AllProductViewModel();
+            data.product = ProductsBUS.DanhSach(page, 8);
             var products = ProductsBUS.DanhSach(page, 8);
 
             return View(products);
