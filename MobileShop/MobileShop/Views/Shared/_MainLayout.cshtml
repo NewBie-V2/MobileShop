@@ -42,7 +42,7 @@
                         <ul>
                             <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                             <li>@Html.ActionLink("  My Cart", "Cart", "ShopingCart", null, new { @class= "fa fa-user" })</li>
-                            <li>@Html.ActionLink("  Login", "Login", "Account", null, new {@class= "fa fa-user"})</li>
+                            @Html.Partial("_LoginPartial")
                         </ul>
                     </div>
                 </div>
@@ -165,5 +165,6 @@
 
     <!-- Main Script -->
     <script src="~/Assets/Users/js/main.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace MobileShop.Controllers
 {
@@ -17,6 +18,7 @@ namespace MobileShop.Controllers
             var productDetail = ProductDetailBUS.DanhSach();
             var producer = ProducersBUS.DanhSach();
             var image = ImageBUS.DanhSach(id);
+            var cmt = CommentBUS.GetCommentByProductID(id);
 
             if (!image.Any())
             {
@@ -29,8 +31,8 @@ namespace MobileShop.Controllers
                           join prodd in productDetail on prod.ProductID equals prodd.ProductID into groups1
                           from x in groups1.DefaultIfEmpty()
                           where prod.ProductID == id
-                          select new DetailViewModel { Producer = y.ProducerName, Products = prod, ProductDetails = x, images = image});
-            
+                          select new DetailViewModel { Producer = y.ProducerName, Products = prod, ProductDetails = x, images = image, comments = cmt });
+    
             return View(detail);
         }
 
@@ -41,6 +43,14 @@ namespace MobileShop.Controllers
             var products = ProductsBUS.DanhSach(page, 8);
 
             return View(products);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Comments(int MaSanPham, String NoiDung)
+        {
+            CommentBUS.AddComment(MaSanPham, User.Identity.GetUserId(), NoiDung);
+            return RedirectToAction("Details", "Products", new { id = MaSanPham});
         }
     }
 }

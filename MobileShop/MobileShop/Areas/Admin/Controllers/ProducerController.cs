@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MobileShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProducerController : Controller
     {
         // GET: Admin/Producer

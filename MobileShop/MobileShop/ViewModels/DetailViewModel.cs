@@ -14,5 +14,7 @@ namespace MobileShop.ViewModels
         public string Producer { get; set; }
 
         public IEnumerable<MobileShopConnection.Image> images { get; set; }
+
+        public List<Models.CommentModels> comments { get; set; }
     }
 }

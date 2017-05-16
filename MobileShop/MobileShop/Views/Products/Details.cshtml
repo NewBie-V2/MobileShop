@@ -80,7 +80,7 @@
                                 <div class="carousel-inner">
                                     @for (int i = 0; i < Model.FirstOrDefault().images.Count(); i++)
                                     {
-                                        <div class='@(i==0 ? "item active" : "item")'>
+                                        <div class='@(i == 0 ? "item active" : "item")'>
                                             <img src="~/Assets/Users/img/@Model.FirstOrDefault().images.ElementAt(i).ImageURL" alt="First Slide" class="img-responsive center-block">
                                         </div>
                                     }
@@ -131,21 +131,39 @@
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="profile">
                                             <h2>Reviews</h2>
-                                            <div class="submit-review">
-                                                <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                <div class="rating-chooser">
-                                                    <p>Your rating</p>
-                                                    <div class="rating-wrap-post">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                using (Html.BeginForm("Comments", "Products", FormMethod.Post))
+                                                {
+                                                    @*@Html.AntiForgeryToken();
+                                                    @Html.Hidden("MaSanPham", Model.FirstOrDefault().ProductDetails.ProductID)
+                                                    <div class="submit-review">
+                                                        <label for="NoiDung">Your review</label>
+                                                        @Html.TextArea("NoiDung", new { @cols = 30, @rows = 10 })
+                                                        <p><input type="submit" value="Submit"></p>
+                                                    </div>*@
+                                                    <div class="submit-review">
+                                                        <textarea id="comment-content" cols="30" rows="10"></textarea>
+                                                        <p><input class="btn btn-success" value="Comment" type="button" onclick="posComment()" /></p>
                                                     </div>
-                                                </div>
-                                                <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                <p><input type="submit" value="Submit"></p>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div>Please <a href="@Url.Action("Login","Account")">login</a> or <a href="@Url.Action("Register", "Account")">register</a> to post your review.</div>
+                                            }
+
+                                            <div id="comment-box" class="box-comments pre-scrollable" cols="30" rows="10">
+                                                @foreach (var item in Model.FirstOrDefault().comments)
+                                                {
+                                                    <div class="comment panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <strong>@item.UserName</strong>
+                                                            <span>@item.TimeElapse</span>
+                                                        </div>
+                                                        <div class="panel-body">@item.Value</div>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -160,3 +178,16 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+        <script>
+            function posComment() {
+                const content = $("#comment-content").val();
+                const productId = @Model.FirstOrDefault().Products.ProductID;
+                const username = "@User.Identity.Name"
+                $.post("/api/CommentApi", {"productId":productId, "value":content}, function(data){
+                    $("#comment-box").prepend("<div class=\"comment panel panel-default\"><div class=\"panel-heading\"><strong>"+username+"</strong><span> Just now</span></div><div class=\"panel-body\">"+content+"</div></div>");
+                });
+            }
+        </script>
+    }

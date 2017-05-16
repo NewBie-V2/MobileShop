@@ -19,9 +19,10 @@ namespace MobileShop.Areas.Admin
             //context.Routes.Add(new Route("admin/{resource}.axd/{*pathInfo}", new StopRoutingHandler()));
 
             context.MapRoute(
-                "Admin_default",    
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
+                name: "Admin_default",    
+                url: "Admin/{controller}/{action}/{id}",
+                defaults: new { action = "Index", controller = "Home", id = UrlParameter.Optional },
+                //new { action = "Index", controller = "Home", id = UrlParameter.Optional,},
                 namespaces: new[] { "MobileShop.Areas.Admin.Controllers" }
             );
         }

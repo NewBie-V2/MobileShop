@@ -34,15 +34,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using PetaPoco;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace MobileShopConnection
 {
 
-    public partial class MobileShopConnectionDB : Database
+	public partial class MobileShopConnectionDB : Database
 	{
 		public MobileShopConnectionDB() 
 			: base("MobileShopConnection")
@@ -138,11 +139,273 @@ namespace MobileShopConnection
 
     
 
+	[TableName("dbo.__MigrationHistory")]
+
+
+
+	[PrimaryKey("MigrationId", AutoIncrement=false)]
+
+
+	[ExplicitColumns]
+
+    public partial class __MigrationHistory : MobileShopConnectionDB.Record<__MigrationHistory>  
+    {
+
+
+
+		[Column] public string MigrationId { get; set; }
+
+
+
+
+
+		[Column] public string ContextKey { get; set; }
+
+
+
+
+
+		[Column] public byte[] Model { get; set; }
+
+
+
+
+
+		[Column] public string ProductVersion { get; set; }
+
+
+
+	}
+
+    
+
+	[TableName("dbo.AspNetRoles")]
+
+
+
+	[PrimaryKey("Id", AutoIncrement=false)]
+
+
+	[ExplicitColumns]
+
+    public partial class AspNetRole : MobileShopConnectionDB.Record<AspNetRole>  
+    {
+
+
+
+		[Column] public string Id { get; set; }
+
+
+
+
+
+		[Column] public string Name { get; set; }
+
+
+
+	}
+
+    
+
+	[TableName("dbo.AspNetUserClaims")]
+
+
+
+	[PrimaryKey("Id")]
+
+
+
+
+	[ExplicitColumns]
+
+    public partial class AspNetUserClaim : MobileShopConnectionDB.Record<AspNetUserClaim>  
+    {
+
+
+
+		[Column] public int Id { get; set; }
+
+
+
+
+
+		[Column] public string UserId { get; set; }
+
+
+
+
+
+		[Column] public string ClaimType { get; set; }
+
+
+
+
+
+		[Column] public string ClaimValue { get; set; }
+
+
+
+	}
+
+    
+
+	[TableName("dbo.AspNetUserLogins")]
+
+
+
+	[PrimaryKey("LoginProvider", AutoIncrement=false)]
+
+
+	[ExplicitColumns]
+
+    public partial class AspNetUserLogin : MobileShopConnectionDB.Record<AspNetUserLogin>  
+    {
+
+
+
+		[Column] public string LoginProvider { get; set; }
+
+
+
+
+
+		[Column] public string ProviderKey { get; set; }
+
+
+
+
+
+		[Column] public string UserId { get; set; }
+
+
+
+	}
+
+    
+
+	[TableName("dbo.AspNetUserRoles")]
+
+
+
+	[PrimaryKey("UserId", AutoIncrement=false)]
+
+
+	[ExplicitColumns]
+
+    public partial class AspNetUserRole : MobileShopConnectionDB.Record<AspNetUserRole>  
+    {
+
+
+
+		[Column] public string UserId { get; set; }
+
+
+
+
+
+		[Column] public string RoleId { get; set; }
+
+
+
+	}
+
+    
+
+	[TableName("dbo.AspNetUsers")]
+
+
+
+	[PrimaryKey("Id", AutoIncrement=false)]
+
+
+	[ExplicitColumns]
+
+    public partial class AspNetUser : MobileShopConnectionDB.Record<AspNetUser>  
+    {
+
+
+
+		[Column] public string Id { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+
+
+		[Column] public bool EmailConfirmed { get; set; }
+
+
+
+
+
+		[Column] public string PasswordHash { get; set; }
+
+
+
+
+
+		[Column] public string SecurityStamp { get; set; }
+
+
+
+
+
+		[Column] public string PhoneNumber { get; set; }
+
+
+
+
+
+		[Column] public bool PhoneNumberConfirmed { get; set; }
+
+
+
+
+
+		[Column] public bool TwoFactorEnabled { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LockoutEndDateUtc { get; set; }
+
+
+
+
+
+		[Column] public bool LockoutEnabled { get; set; }
+
+
+
+
+
+		[Column] public int AccessFailedCount { get; set; }
+
+
+
+
+
+		[Column] public string UserName { get; set; }
+
+
+
+	}
+
+    
+
 	[TableName("dbo.Comment")]
 
 
 
-	[PrimaryKey("CommentID", AutoIncrement=false)]
+	[PrimaryKey("CommentID")]
+
+
 
 
 	[ExplicitColumns]
@@ -158,7 +421,7 @@ namespace MobileShopConnection
 
 
 
-		[Column] public int? UserID { get; set; }
+		[Column] public string UserID { get; set; }
 
 
 
@@ -326,7 +589,7 @@ namespace MobileShopConnection
 
 
 
-		[Column] public int? UserID { get; set; }
+		[Column] public string UserID { get; set; }
 
 
 
@@ -357,128 +620,142 @@ namespace MobileShopConnection
 
 	[ExplicitColumns]
 
-    public partial class Producer : MobileShopConnectionDB.Record<Producer>  
+    public partial class Producer : MobileShopConnectionDB.Record<Producer>
     {
 
 
         [DisplayName("ID")]
-        [Column] public int ProducerID { get; set; }
+        [Column]
+        public int ProducerID { get; set; }
 
 
 
 
         [DisplayName("Name")]
-        [Column] public string ProducerName { get; set; }
+        [Column]
+        public string ProducerName { get; set; }
 
 
 
 
         [DisplayName("Logo")]
-        [Column] public string LoGo { get; set; }
+        [Column]
+        public string LoGo { get; set; }
 
 
 
 
         [DisplayName("Available")]
-        [Column] public long? Deleted { get; set; }
+        [Column]
+        public long? Deleted { get; set; }
 
 
 
-	}
-
-    
-
-	[TableName("dbo.Product")]
+    }
 
 
 
-	[PrimaryKey("ProductID")]
+    [TableName("dbo.Product")]
+
+
+
+    [PrimaryKey("ProductID")]
 
 
 
 
-	[ExplicitColumns]
+    [ExplicitColumns]
 
-    public partial class Product : MobileShopConnectionDB.Record<Product>  
+    public partial class Product : MobileShopConnectionDB.Record<Product>
     {
 
 
         [DisplayName("ID")]
-		[Column] public int ProductID { get; set; }
+        [Column]
+        public int ProductID { get; set; }
 
 
 
 
         [DisplayName("Name")]
-        [Column] public string ProductName { get; set; }
+        [Column]
+        public string ProductName { get; set; }
 
 
 
 
         [DisplayName("Type")]
-        [Column] public int? ProductTypeID { get; set; }
+        [Column]
+        public int? ProductTypeID { get; set; }
 
 
 
 
         [DisplayName("Producer ID")]
-        [Column] public int? ProducerID { get; set; }
+        [Column]
+        public int? ProducerID { get; set; }
 
 
 
         [DisplayName("Price")]
         [DataType(DataType.Currency) DisplayFormat(DataFormatString = "{0:N0} VNĐ")]
-        [Column] public decimal? Price { get; set; }
+        [Column]
+        public decimal? Price { get; set; }
 
 
 
         [DisplayName("Sold")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        [Column] public int? Sold { get; set; }
-        
+        [Column]
+        public int? Sold { get; set; }
 
 
 
-        
-        [Column] public int? Quantity { get; set; }
+
+
+        [Column]
+        public int? Quantity { get; set; }
 
 
 
         [DisplayName("Total view")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        [Column] public int? Viewed { get; set; }
+        [Column]
+        public int? Viewed { get; set; }
 
 
 
         [DisplayName("Date added")]
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [Column] public DateTime? Date { get; set; }
+        [Column]
+        public DateTime? Date { get; set; }
 
 
 
 
 
-		[Column] public string Description { get; set; }
+        [Column]
+        public string Description { get; set; }
 
 
 
 
 
-		[Column] public string ImageURL { get; set; }
+        [Column]
+        public string ImageURL { get; set; }
 
 
 
 
         [DisplayName("Available")]
-        [Column] public long? Deleted { get; set; }
+        [Column]
+        public long? Deleted { get; set; }
 
 
 
-	}
+    }
 
-    
-
-	[TableName("dbo.ProductDetail")]
+    [TableName("dbo.ProductDetail")]
 
 
 
@@ -604,13 +881,59 @@ namespace MobileShopConnection
 
     
 
+	[TableName("dbo.sysdiagrams")]
+
+
+
+	[PrimaryKey("diagram_id")]
+
+
+
+
+	[ExplicitColumns]
+
+    public partial class sysdiagram : MobileShopConnectionDB.Record<sysdiagram>  
+    {
+
+
+
+		[Column] public string name { get; set; }
+
+
+
+
+
+		[Column] public int principal_id { get; set; }
+
+
+
+
+
+		[Column] public int diagram_id { get; set; }
+
+
+
+
+
+		[Column] public int? version { get; set; }
+
+
+
+
+
+		[Column] public byte[] definition { get; set; }
+
+
+
+	}
+
+    
+
 	[TableName("dbo.User")]
 
 
 
-	[PrimaryKey("UserID")]
-
-
+	[PrimaryKey("UserID", AutoIncrement=false)]
 
 
 	[ExplicitColumns]
@@ -620,7 +943,7 @@ namespace MobileShopConnection
 
 
 
-		[Column] public int UserID { get; set; }
+		[Column] public string UserID { get; set; }
 
 
 
